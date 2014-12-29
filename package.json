@@ -1,0 +1,11 @@
+{
+    "name": "Node Polyfill",
+    "version": "0.0.1",
+    "private": true,
+    "main": "./polyfill",
+    "dependencies": {
+    },
+    "engines": {
+        "node": "0.10.21"
+    }
+}
