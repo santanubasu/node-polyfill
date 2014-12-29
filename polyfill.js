@@ -26,7 +26,7 @@ if (!String.prototype.endsWith) {
     });
 }
 
-if (!Object.prototype.extend) {
+if (!Object.extend) {
     Object.defineProperty(Object, "extend", {
         enumerable: false,
         configurable: false,
