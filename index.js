@@ -1,7 +1,7 @@
-// Define a number of common functions if they don't already exist
+// Define a number of common functions if they don"t already exist
 
 if (!String.prototype.startsWith) {
-    Object.defineProperty(String.prototype, 'startsWith', {
+    Object.defineProperty(String.prototype, "startsWith", {
         enumerable: false,
         configurable: false,
         writable: false,
@@ -13,7 +13,7 @@ if (!String.prototype.startsWith) {
 }
 
 if (!String.prototype.endsWith) {
-    Object.defineProperty(String.prototype, 'endsWith', {
+    Object.defineProperty(String.prototype, "endsWith", {
         enumerable: false,
         configurable: false,
         writable: false,
@@ -22,6 +22,21 @@ if (!String.prototype.endsWith) {
             position = position - searchString.length;
             var lastIndex = this.lastIndexOf(searchString);
             return lastIndex !== -1 && lastIndex === position;
+        }
+    });
+}
+
+if (!Object.new) {
+    Object.defineProperty(Object, "new", {
+        enumerable: false,
+        configurable: false,
+        writable: false,
+        value: function (options) {
+            var instance = this.extend();
+            if (instance.initialize) {
+                instance.initialize(options);
+            }
+            return instance;
         }
     });
 }
