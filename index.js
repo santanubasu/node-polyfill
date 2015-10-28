@@ -1,4 +1,5 @@
 // Define a number of common functions if they don"t already exist
+var extend = require("node.extend");
 
 if (!String.prototype.startsWith) {
     Object.defineProperty(String.prototype, "startsWith", {
@@ -53,7 +54,12 @@ if (!Object.extend) {
             if (augment) {
                 for (var key in augment) {
                     if (augment.hasOwnProperty(key)) {
-                        f[key]=augment[key];
+                        if ((key in f)&&(typeof f[key]==="object")) {
+                            f[key]=extend(true, {}, f[key], augment[key]);
+                        }
+                        else {
+                            f[key]=augment[key];
+                        }
                     }
                 }
             }
