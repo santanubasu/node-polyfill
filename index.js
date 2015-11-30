@@ -53,7 +53,12 @@ if (!Object.extend) {
             var f = new F();
             if (augment) {
                 for (var key in augment) {
-                    if ((key in f)&&(typeof f[key]==="object")&&(!Array.isArray(f[key]))) {
+                    if (
+                        (key in f)&&
+                        (typeof f[key]==="object")&&
+                        (typeof f[key].extend!=="function")&&
+                        (!Array.isArray(f[key]))
+                    ) {
                         f[key]=extend(true, {}, f[key], augment[key]);
                     }
                     else {
