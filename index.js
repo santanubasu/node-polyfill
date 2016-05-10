@@ -27,6 +27,41 @@ if (!String.prototype.endsWith) {
     });
 }
 
+if (!Object.prototype.merge) {
+    Object.defineProperty(Object.prototype, "merge", {
+        enumerable: false,
+        configurable: true,
+        writable: true,
+        value: function (target, augment) {
+            if (!augment) {
+                augment = target;
+                target = this;
+            }
+            if (augment) {
+                for (var key in augment) {
+                    var descriptor = Object.getOwnPropertyDescriptor(augment, key);
+                    if (descriptor.get) {
+                        Object.defineProperty(target, key, descriptor);
+                    }
+                    else {
+                        var value = augment[key];
+                        if (value instanceof Array) {
+                            target[key] = value;
+                        }
+                        else if ((typeof target[key]==="object")&&(typeof value==="object")) {
+                            target[key].merge(value);
+                        }
+                        else {
+                            target[key] = value;
+                        }
+                    }
+                }
+            }
+            return target;
+        }
+    });
+}
+
 if (!Object.new) {
     Object.defineProperty(Object, "new", {
         enumerable: false,
