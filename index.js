@@ -1,5 +1,6 @@
 // Define a number of common functions if they don"t already exist
 var extend = require("node.extend");
+var _ = require("lodash");
 
 if (!String.prototype.startsWith) {
     Object.defineProperty(String.prototype, "startsWith", {
@@ -94,7 +95,11 @@ if (!Object.extend) {
                         (typeof f[key].extend!=="function")&&
                         (!Array.isArray(f[key]))
                     ) {
-                        f[key]=extend(true, {}, f[key], augment[key]);
+                        f[key]= _.mergeWith({}, f[key], augment[key], function(a, b) {
+                            if (_.isArray(a)&&_.isArray(b)) {
+                                return b;
+                            }
+                        });
                     }
                     else {
                         f[key]=augment[key];
