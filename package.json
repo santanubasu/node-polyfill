@@ -3,6 +3,7 @@
     "version": "0.1.0",
     "private": false,
     "dependencies": {
-      "lodash":"4.13.1"
+      "lodash":"4.13.1",
+      "node.extend":"1.1.5"
     }
 }
