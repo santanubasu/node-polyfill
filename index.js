@@ -33,8 +33,8 @@ if (!String.prototype.toTitleCase) {
         enumerable: false,
         configurable: false,
         writable: false,
-        value: function (string) {
-            return string.replace(/([^\W_]+[^\s-]*) */g, function(txt){
+        value: function () {
+            return this.replace(/([^\W_]+[^\s-]*) */g, function(txt){
                 return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
             });
         }
