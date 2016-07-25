@@ -28,6 +28,19 @@ if (!String.prototype.endsWith) {
     });
 }
 
+if (!String.prototype.toTitleCase) {
+    Object.defineProperty(String.prototype, "toTitleCase", {
+        enumerable: false,
+        configurable: false,
+        writable: false,
+        value: function (string) {
+            return string.replace(/([^\W_]+[^\s-]*) */g, function(txt){
+                return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+            });
+        }
+    });
+}
+
 if (!Object.prototype.merge) {
     Object.defineProperty(Object.prototype, "merge", {
         enumerable: false,
