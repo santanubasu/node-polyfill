@@ -115,6 +115,9 @@ if (!Object.extend) {
                         });
                     }
                     else {
+                        if (typeof f[key]==="function") {
+                            f["_"+key] = f[key]
+                        }
                         f[key]=augment[key];
                     }
                 }
