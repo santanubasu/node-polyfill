@@ -41,8 +41,8 @@ if (!String.prototype.toTitleCase) {
     });
 }
 
-if (!Object.prototype.merge) {
-    Object.defineProperty(Object.prototype, "merge", {
+if (!Object.prototype.integrate) {
+    Object.defineProperty(Object.prototype, "integrate", {
         enumerable: false,
         configurable: true,
         writable: true,
@@ -63,7 +63,7 @@ if (!Object.prototype.merge) {
                             target[key] = value;
                         }
                         else if ((typeof target[key]==="object")&&(typeof value==="object")) {
-                            target[key].merge(value);
+                            target[key].integrate(value);
                         }
                         else {
                             target[key] = value;
@@ -119,6 +119,45 @@ if (!Object.extend) {
                             this["_"+key] = f[key]
                         }
                         f[key]=augment[key];
+                    }
+                }
+            }
+            return f;
+        }
+    });
+}
+
+if (!Object.overlay) {
+    Object.defineProperty(Object, "overlay", {
+        enumerable: false,
+        configurable: false,
+        writable: false,
+        value:function(augment) {
+            function F() {}
+            F.prototype = this;
+            var f = new F();
+            if (augment) {
+                for (var key in augment) {
+                    if (key in f) {
+                        if (typeof f[key]==="object") {
+                            if (f[key].overlay===Object.overlay) {
+                                f[key] = f[key].overlay(augment[key])
+                            }
+                            else {
+                                f[key] = Object.overlay(f[key]).overlay(augment[key])
+                            }
+                        }
+                        else {
+                            f[key] = augment[key]
+                        }
+                    }
+                    else {
+                        if (typeof augment[key]==="object") {
+                            f[key] = Object.overlay(augment[key])
+                        }
+                        else {
+                            f[key] = augment[key]
+                        }
                     }
                 }
             }
