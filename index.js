@@ -148,12 +148,17 @@ if (!Object.overlay) {
                             }
                         }
                         else {
-                            f[key] = augment[key]
+                            f[key] = augment[key];
                         }
                     }
                     else {
                         if (typeof augment[key]==="object") {
-                            f[key] = Object.overlay(augment[key])
+                            if (augment[key].overlay===Object.overlay) {
+                                f[key] = augment[key].overlay({});
+                            }
+                            else {
+                                f[key] = Object.overlay(augment[key])
+                            }
                         }
                         else {
                             f[key] = augment[key]
